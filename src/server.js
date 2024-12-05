@@ -1,38 +1,49 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const connectDB = require('./config/database');
-const swaggerSpec = require('./config/swagger');
-const apiRoutes = require('./routes/api');
-const { createUploadDir } = require('./utils/fileUpload');
+const connectDB = require('./config/db');
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require("./routes/userRoutes")
+const { handleError } = require('./utils/errorHandler');
+const { httpLogger, logger } = require('./utils/logger');
+
+const roleRoutes = require('./routes/roleRoutes'); // Adjust path accordingly
+
+
 
 const app = express();
 
-// Create uploads directory
-createUploadDir('uploads');
+// Connect to MongoDB
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use(httpLogger);
 
-// Swagger documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Routes
+app.use('/api/admin', adminRoutes);
+app.use('/',userRoutes )
 
-// API Routes
-app.use('/api', apiRoutes);
+// Only Used to creating default Roles Not needed further
+app.use('/api/roles', roleRoutes);
+// --------------------------------
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  logger.error('Application error:', err);
+  handleError(err, res);
 });
 
-// Database connection
-connectDB();
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ 
+    success: false, 
+    message: 'Route not found' 
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server is running on port ${PORT}`);
 });

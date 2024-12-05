@@ -1,12 +1,21 @@
-const handleError = (res, error) => {
-  console.error(error);
-  if (error.name === 'ValidationError') {
-    return res.status(400).json({ error: error.message });
+class AppError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+    Error.captureStackTrace(this, this.constructor);
   }
-  if (error.name === 'MongoError' && error.code === 11000) {
-    return res.status(409).json({ error: 'Duplicate entry found' });
-  }
-  return res.status(500).json({ error: 'Server error' });
+}
+
+const handleError = (err, res) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).json({
+    status: 'error',
+    message: statusCode === 500 ? 'Internal server error' : message
+  });
 };
 
-module.exports = { handleError };
+module.exports = {
+  AppError,
+  handleError
+};
