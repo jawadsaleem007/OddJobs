@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "6751e59eb0b082d024307de0"
+  },
+  "name": "client",
+  "permissions": {
+    "create_gig": false,
+    "view_gig": true
+  },
+  "createdAt": {
+    "$date": "2024-12-05T17:40:46.235Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6751e59eb0b082d024307de3"
+  },
+  "name": "gig_worker",
+  "permissions": {
+    "create_gig": false,
+    "view_gig": true
+  },
+  "createdAt": {
+    "$date": "2024-12-05T17:40:46.243Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6751e59eb0b082d024307de6"
+  },
+  "name": "admin",
+  "permissions": {
+    "create_gig": false,
+    "view_gig": true
+  },
+  "createdAt": {
+    "$date": "2024-12-05T17:40:46.247Z"
+  },
+  "__v": 0
+}]
