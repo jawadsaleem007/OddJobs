@@ -23,8 +23,17 @@ exports.getPlatformStats = async (req, res, next) => {
 exports.exportReportCSV = async (req, res, next) => {
   try {
     const { type, startDate, endDate } = req.query;
+        // Validate the type
+    if (!['transactions', 'orders'].includes(type)) {
+      return next(new AppError('Invalid report type. Supported types: transactions, orders.', 400));
+    }
     const data = await AnalyticsService.generateReport(type, startDate, endDate);
     
+        // Handle empty data
+        if (!data || data.length === 0) {
+          return next(new AppError('No data available for the selected report type and date range.', 404));
+        }
+        
     const csv = json2csv(data);
     res.header('Content-Type', 'text/csv');
     res.attachment(`${type}-report.csv`);

@@ -4,7 +4,9 @@ const TransactionSchema = new mongoose.Schema({
   user: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User', 
-    required: true 
+    required: true,
+    index: true 
+
   },
   amount: { 
     type: Number, 
@@ -18,7 +20,8 @@ const TransactionSchema = new mongoose.Schema({
   status: { 
     type: String, 
     enum: ['pending', 'completed', 'failed'], 
-    default: 'pending' 
+    default: 'pending',
+    index: true 
   },
   description: String,
   transactionId: { 

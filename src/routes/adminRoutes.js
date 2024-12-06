@@ -18,6 +18,10 @@ router.get('/categories', adminAuth, categoryController.getAllCategories);
 // Transaction Management Routes
 router.get('/transactions', adminAuth, transactionController.getAllTransactions);
 router.put('/transactions/:id/withdrawal', adminAuth, transactionValidators.withdrawal, transactionController.handleWithdrawalRequest);
+router.post('/transactions', adminAuth, transactionValidators.create, transactionController.createTransaction);
+router.delete('/transactions/:id', adminAuth, transactionValidators.delete, transactionController.deleteTransaction);
+
+
 
 // Analytics Routes
 router.get('/analytics/platform-stats', adminAuth, analyticsController.getPlatformStats);
@@ -35,5 +39,7 @@ router.put('/reviews/:id', adminAuth, feedbackController.handleFlaggedReview);
 router.get('/support/tickets', adminAuth, supportController.getAllTickets);
 router.put('/support/tickets/:id/assign', adminAuth, supportController.assignTicket);
 router.put('/support/tickets/:id/status', adminAuth, supportController.updateTicketStatus);
+router.post('/support/tickets', adminAuth, supportController.addTicket);
+
 
 module.exports = router;

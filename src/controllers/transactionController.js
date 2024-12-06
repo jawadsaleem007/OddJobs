@@ -42,3 +42,44 @@ exports.handleWithdrawalRequest = async (req, res, next) => {
     next(new AppError(error.message, 400));
   }
 };
+
+exports.createTransaction = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(new AppError('Validation error', 400));
+  }
+
+  try {
+    const { user, amount, type, description } = req.body;
+
+    const transaction = new Transaction({
+      user,
+      amount,
+      type,
+      description,
+    });
+
+    // Generate unique transaction ID
+    transaction.transactionId = `TXN-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+    await transaction.save();
+
+    res.status(201).json(transaction);
+  } catch (error) {
+    next(new AppError(error.message, 400));
+  }
+};
+
+exports.deleteTransaction = async (req, res, next) => {
+  try {
+    const transaction = await Transaction.findByIdAndDelete(req.params.id);
+
+    if (!transaction) {
+      return next(new AppError('Transaction not found', 404));
+    }
+
+    res.json({ message: 'Transaction deleted successfully' });
+  } catch (error) {
+    next(new AppError(error.message, 400));
+  }
+};

@@ -59,3 +59,38 @@ exports.updateTicketStatus = async (req, res, next) => {
     next(new AppError(error.message, 400));
   }
 };
+
+exports.addTicket = async (req, res, next) => {
+  try {
+    const { userId, issue, description, priority } = req.body;
+
+    // Validate incoming data
+    if (!userId || !issue || !description) {
+      return next(new AppError('Missing required fields', 400));
+    }
+
+    // Create a new support ticket
+    const ticket = new SupportTicket({
+      user: userId,
+      issue,
+      description,
+      priority: priority || 'medium',  // Default to 'medium' priority if not provided
+    });
+
+    // Save the ticket to the database
+    await ticket.save();
+
+    // Optionally, send a notification or email to an admin
+    await NotificationService.sendAdminAlert(
+      `New support ticket created by user ${userId}`,
+      'normal'
+    );
+
+    res.status(201).json({
+      message: 'Ticket created successfully',
+      ticket,
+    });
+  } catch (error) {
+    next(new AppError(error.message, 400));
+  }
+};
