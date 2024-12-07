@@ -6,9 +6,9 @@ const OrderSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  freelancer: {
+  gig: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Gig',
     required: true
   },
   title: {
@@ -21,10 +21,7 @@ const OrderSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
-  },
+
   amount: {
     type: Number,
     required: true,
@@ -78,7 +75,8 @@ const OrderSchema = new mongoose.Schema({
 });
 
 // Indexes to improve query performance
-OrderSchema.index({ freelancer: 1, status: 1 });
 OrderSchema.index({ client: 1, status: 1 });
+OrderSchema.index({ gig: 1, status: 1 });
+
 
 module.exports = mongoose.model('Order', OrderSchema);

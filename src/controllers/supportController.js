@@ -62,10 +62,10 @@ exports.updateTicketStatus = async (req, res, next) => {
 
 exports.addTicket = async (req, res, next) => {
   try {
-    const { userId, issue, description, priority } = req.body;
-
+    const {  issue, description, priority } = req.body;
+    const userId= req.user._id;
     // Validate incoming data
-    if (!userId || !issue || !description) {
+    if ( !issue || !description) {
       return next(new AppError('Missing required fields', 400));
     }
 
@@ -94,3 +94,4 @@ exports.addTicket = async (req, res, next) => {
     next(new AppError(error.message, 400));
   }
 };
+
