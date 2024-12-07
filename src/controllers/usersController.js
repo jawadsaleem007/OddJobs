@@ -102,22 +102,27 @@ async function getUserProfile(req, res) {
 }
 
 // Function to update user profile
-async function updateUserProfile(req, res) {
+// Backend Route for Profile Update
+const updateUserProfile = async (req, res) => {
   try {
     const { name, bio, skills, hourlyRate } = req.body;
+
+    // Update the user profile
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id, 
       { name, bio, skills, hourlyRate }, 
       { new: true }
     );
+
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
+
     res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
   } catch (error) {
     res.status(500).json({ message: 'Error updating user profile', error: error.message });
   }
-}
+};
 
 // Function to delete user account
 async function deleteUserAccount(req, res) {

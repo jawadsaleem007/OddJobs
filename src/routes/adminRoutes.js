@@ -13,7 +13,7 @@ const { categoryValidators, transactionValidators } = require('../utils/validato
 router.post('/categories', adminAuth, categoryValidators.create, categoryController.addCategory);
 router.put('/categories/:id', adminAuth, categoryValidators.update, categoryController.updateCategory);
 router.delete('/categories/:id', adminAuth, categoryController.deleteCategory);
-router.get('/categories', adminAuth, categoryController.getAllCategories);
+router.get('/categories', categoryController.getAllCategories);
 
 // Transaction Management Routes
 router.get('/transactions', adminAuth, transactionController.getAllTransactions);

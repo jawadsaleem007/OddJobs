@@ -7,7 +7,7 @@ const GigAnalytics = require('../models/GigAnalytics');
 exports.createGig = async (req, res) => {
   try {
     const { title, description, category, amount, skills, deliveryTime, images } = req.body;
-    const freelancer = req.user._id;  // Assuming the user is authenticated and their id is available
+    const user_id = req.user._id;  // Assuming the user is authenticated and their id is available
 
     // Check if the category exists
     const categoryExists = await Category.findById(category);
@@ -18,7 +18,7 @@ exports.createGig = async (req, res) => {
       description,
       category,
       amount,
-      freelancer,
+      user_id : user_id,
       skills,
       deliveryTime,
       images,
@@ -34,7 +34,7 @@ exports.createGig = async (req, res) => {
 // Get all gigs for the logged-in Gig Worker
 exports.getAllGigs = async (req, res) => {
   try {
-    const gigs = await Gig.find({ freelancer: req.user._id });
+    const gigs = await Gig.find({ user_id: req.user._id }).populate("user_id category");
     res.status(200).json(gigs);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -93,16 +93,16 @@ exports.deleteGig = async (req, res) => {
 // Get all orders assigned to the logged-in Gig Worker
 exports.getAllOrdersForWorker = async (req, res) => {
     try {
-      // Find all orders where the freelancer is associated with the gig
+      // Find all orders where the user_id is associated with the gig
       const orders = await Order.find()
         .populate('client')  // Populate the client (user who placed the order)
         .populate({
           path: 'gig',  // Populate the gig associated with the order
-          match: { freelancer: req.user._id },  // Only include gigs for the logged-in freelancer
-          select: 'title freelancer'  // You can select specific fields to return
+          match: { user_id: req.user._id },  // Only include gigs for the logged-in user_id
+          select: 'title user_id'  // You can select specific fields to return
         });
   
-      // Filter out orders that don't belong to the logged-in freelancer (since populate doesn't auto-filter)
+      // Filter out orders that don't belong to the logged-in user_id (since populate doesn't auto-filter)
       const filteredOrders = orders.filter(order => order.gig);
   
       res.status(200).json(filteredOrders);
@@ -144,7 +144,7 @@ exports.updateOrderStatus = async (req, res) => {
 // Get all reviews for the Gig Worker
 exports.getReviewsForGigWorker = async (req, res) => {
   try {
-    const orders = await Order.find({ freelancer: req.user._id }).populate('client');
+    const orders = await Order.find({ user_id: req.user._id }).populate('client');
     const reviews = orders.map(order => order.reviews.clientReview);
     res.status(200).json(reviews);
   } catch (error) {
@@ -174,10 +174,10 @@ exports.getAllReviewsForGig = async (req, res) => {
   exports.getAllReviewsForAllGigs = async (req, res) => {
     try {
       // Get all gigs that belong to the logged-in gig worker
-      const gigs = await Gig.find({ freelancer: req.user._id });
+      const gigs = await Gig.find({ user_id: req.user._id });
   
       if (!gigs || gigs.length === 0) {
-        return res.status(404).json({ message: 'No gigs found for this freelancer' });
+        return res.status(404).json({ message: 'No gigs found for this user_id' });
       }
   
       // Get all reviews for the gigs
@@ -213,7 +213,7 @@ exports.getAllReviewsForGig = async (req, res) => {
   exports.getAllGigAnalytics = async (req, res) => {
     try {
       // Step 1: Get all gigs for the logged-in user (Gig Worker)
-      const gigs = await Gig.find({ freelancer: req.user._id });
+      const gigs = await Gig.find({ user_id: req.user._id });
   
       // Step 2: Fetch analytics for each gig directly from GigAnalytics
       const gigsWithAnalytics = await Promise.all(

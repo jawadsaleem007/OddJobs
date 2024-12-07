@@ -21,7 +21,7 @@ const GigSchema = new mongoose.Schema({
     required: true,
     min: 0,  // Ensures that the amount can't be negative
   },
-  freelancer: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',  // Reference to the User model (GigWorker)
     required: true,
@@ -37,6 +37,11 @@ const GigSchema = new mongoose.Schema({
     enum: ['active', 'inactive'],
     default: 'active',  // The default status is 'active'
   },
+
+  rating: {
+    type : Number,
+    default: 0
+  }
 }, {
   timestamps: true,  // Automatically adds 'createdAt' and 'updatedAt'
 });
