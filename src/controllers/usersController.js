@@ -163,11 +163,42 @@ async function changePassword(req, res) {
   }
 }
 
+
+// Function to get all users
+async function getAllUsers(req, res) {
+  try {
+    // Fetch all users from the User model
+    const users = await User.find().populate('role');  // You can include the role field to get user roles as well
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: 'No users found' });
+    }
+
+    // Return all users with their roles
+    res.status(200).json({
+      message: 'Users fetched successfully',
+      users: users.map(user => ({
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role.name, // Return the role name, or other details from the Role model
+        bio: user.bio,
+        skills: user.skills,
+        hourlyRate: user.hourlyRate,
+      })),
+    });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Error fetching users', error: error.message });
+  }
+}
+
 module.exports = {
   createUser,
   loginUser,
   getUserProfile,
   updateUserProfile,
   deleteUserAccount,
-  changePassword
+  changePassword,
+  getAllUsers,  // Export the new function
 };

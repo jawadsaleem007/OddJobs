@@ -60,6 +60,8 @@ const OrderSchema = new mongoose.Schema({
       comment: String,
       createdAt: Date
     },
+    paymentMethod: { type: String, enum: ['credit_card', 'paypal'], required: true },
+    transactionId: { type: String },
     freelancerReview: {
       rating: {
         type: Number,

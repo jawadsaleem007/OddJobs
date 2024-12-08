@@ -40,6 +40,9 @@ router.get('/support/tickets', adminAuth, supportController.getAllTickets);
 router.put('/support/tickets/:id/assign', adminAuth, supportController.assignTicket);
 router.put('/support/tickets/:id/status', adminAuth, supportController.updateTicketStatus);
 router.post('/support/tickets', adminAuth, supportController.addTicket);
+ 
 
+
+router.get('/users',adminAuth,)
 
 module.exports = router;

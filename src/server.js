@@ -11,6 +11,7 @@ const roleRoutes = require('./routes/roleRoutes'); // Adjust path accordingly
 const supportRoutes = require("./routes/supportRoutes");
 const discountRoutes = require("./routes/discountRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const clientRoutes= require("./routes/clientRoutes");
 const app = express();
 
 // Connect to MongoDB
@@ -30,6 +31,7 @@ app.use('/api/roles', roleRoutes);
 app.use('/api',supportRoutes);
 app.use('/api',discountRoutes);
 app.use('/api',orderRoutes);
+app.use('/api/client',clientRoutes);
 // --------------------------------
 
 // Error handling middleware

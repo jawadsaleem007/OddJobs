@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     ref: 'Role', // Reference the Role model
     required: true 
   },
-
+  savedGigs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Gig' }],
   bio: String,
   skills: [String],
   lastActive: { 

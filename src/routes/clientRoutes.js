@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { trackGigView, trackGigClick } = require('../controllers/clientController');
-const userAuth = require('../middleware/auth');  // Assuming userAuth middleware is used to authenticate clients
+const { getSavedGigs, saveGig, removeSavedGig ,getClientOrders,placeCustomOrder} = require('../controllers/clientController');// Assuming protect middleware exists for authentication
+const userAuth = require('../middleware/userAuth');
 
-// Route to track a gig view
-router.post('/gigs/:id/view', userAuth, trackGigView);
+// Get all saved gigs
+router.get('/saved-gigs',userAuth, getSavedGigs);
 
-// Route to track a gig click
-router.post('/gigs/:id/click', userAuth, trackGigClick);
+// Save a new gig to the wishlist
+router.post('/saved-gigs',userAuth, saveGig);
+
+// Remove a gig from the saved list
+router.delete('/saved-gigs/:id',userAuth, removeSavedGig);
+
+
 
 module.exports = router;
