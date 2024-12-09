@@ -1,0 +1,3160 @@
+{
+	"info": {
+		"_postman_id": "39cfdb37-84ce-4444-aae0-ff25414a5178",
+		"name": "Odd Jobs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34836347",
+		"_collection_link": "https://teampedo.postman.co/workspace/TeamPedo-Workspace~6bae3eaa-d6b8-49ac-8e57-b33a439d3bf8/collection/40236970-39cfdb37-84ce-4444-aae0-ff25414a5178?action=share&source=collection_link&creator=34836347"
+	},
+	"item": [
+		{
+			"name": "Auth/Users",
+			"item": [
+				{
+					"name": "Register a User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jawad \",\r\n    \"email\": \"Jawad@gmail.com\",\r\n    \"password\": \"securePassword123\",\r\n    \"role\": \"gig_worker\",\r\n    \"bio\": \"Software Engineer with a passion for coding.\",\r\n    \"skills\": [\r\n        \"JavaScript\",\r\n        \"Node.js\",\r\n        \"React\"\r\n    ],\r\n    \"hourlyRate\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/register",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "\n### Register User\n\nThis endpoint allows the client to register a new user with the system.\n\n#### Request Body\n- `name` (string, required): The name of the user.\n- `email` (string, required): The email address of the user.\n- `password` (string, required): The password for the user account.\n- `role` (string, required): The role of the user, e.g., \"gig_worker\".\n- `bio` (string, required): A brief biography or description of the user.\n- `skills` (array of strings, required): An array of skills possessed by the user.\n- `hourlyRate` (number, required): The hourly rate for the user's services.\n\n#### Response (400 - Bad Request)\nThe response will be in JSON format with a message key indicating the reason for the bad request.\n\n#### JSON Schema\n```json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"email\": \"Usman@gmail.com\",\r\n  \"password\": \"securePassword123\"\r\n//      \"email\": \"john.doe@example.com\",\r\n//   \"password\": \"securePassword123\"\r\n\r\n//  \"email\": \"Abdullah@gmail.com\",\r\n//   \"password\": \"securePassword123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "### Login Endpoint\n\nThis endpoint allows users to log in by providing their email and password.\n\n#### Request Body\n\n- `email` (string): The email of the user.\n    \n- `password` (string): The password for the user's account.\n    \n\n#### Response\n\nThe response for this request is in JSON format with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```\n\nThe response will include a `message` key with a string value providing information about the result of the login attempt."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyOWFlODRiNTAxYjc1MDYyZmNlMjQiLCJlbWFpbCI6Imphd2Fkc2FsZWVtMkBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UxZCIsIm5hbWUiOiJnaWdfd29ya2VyIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNlQwNjozNDowNi42MDBaIiwiX192IjowfSwiaWF0IjoxNzMzNDY2OTgxLCJleHAiOjE3MzM0NzA1ODF9.gtPB44KGMX-PPX4SUmmg7LIeZgflGVxLlDJiqr6R0so",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/profile",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "### Profile Information Retrieval\n\nThis endpoint retrieves the profile information.\n\n#### Request\n\nThere are no request parameters for this endpoint.\n\n#### Response\n\nThe response for this request is a JSON object with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    // Define the properties based on the actual response\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyMGVjNDlmMTAzMjRmMzY5MmU3NTEiLCJlbWFpbCI6Ikphd2FkQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM0MzA5ODYsImV4cCI6MTczMzQzNDU4Nn0.aG3oCaTXL4YfvhofnbIB-647Cq4l3KHYRHF0yZxWOpA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Abdullah King\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/profile",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "\n### Update Profile\n\nThis endpoint is used to update the user's profile.\n\n#### Request Body\n- name (string, required): The updated name of the user.\n\n#### Response\nThe response of this request is in JSON format and follows the schema below:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Create default roles RUN THIS FIRST FOR THE FIRST TIME",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/roles/add-default-roles",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"add-default-roles"
+							]
+						},
+						"description": "The `POST` request to `/api/roles/add-default-roles` endpoint is used to add default roles.\n\n### Request Body\n\nThis request does not require a request body.\n\n### Response\n\nThe response of this request is a JSON schema describing the structure of the response data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Users (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NmE1YWQzZjQ0MjgzN2U5ZWE3MjIiLCJlbWFpbCI6IkFkbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNjg5ODU5LCJleHAiOjE3MzQyOTQ2NTl9.jdDAHusSHKv1lIUG7M02GdanGAYlvVHn9RPW1S8Mphc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/admin/users",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users"
+							]
+						},
+						"description": "\nThis endpoint sends an HTTP GET request to retrieve a list of users from the admin API. The response of this request can be documented as a JSON schema to describe the structure and data types of the returned user data.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User ( Admin Only )",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUxZThiMDE3MjgxODA4NDVmOWY1M2YiLCJlbWFpbCI6Ikphd2FkQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNDIxMzMzLCJleHAiOjE3MzM0MjQ5MzN9.lvkHJKLzomd8LqzggSN3m6VjApK_NGAaUbrcgxqcj6c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"6751e7a95136770f1b1279a9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/profile",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "\n### DELETE /profile\n\nThis endpoint is used to delete a user profile.\n\n#### Request\n- Method: DELETE\n- Endpoint: `{{localhost}}/profile`\n- Body:\n  - `userId`: (string) The ID of the user profile to be deleted.\n\n#### Response\nThe response for this request is a JSON schema. The schema includes the properties and data types of the response body, but specific values are not provided.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Category (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Dish Washing\",\r\n  \"description\": \"Services for cleaning dishes.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"categories"
+							]
+						},
+						"description": "\n### POST /api/admin/categories\n\nThis endpoint is used to create a new category under the admin section.\n\n#### Request\n- Method: POST\n- URL: `{{localhost}}/api/admin/categories`\n- Body:\n  - name (text, required): The name of the category.\n  - description (text, required): A brief description of the category.\n\n#### Response\nThe response is in JSON format and includes the following schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"error\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\n- Status: 401\n- Content-Type: application/json\n- Body:\n  ```json\n  {\n    \"error\": \"\"\n  }\n  ```\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category (Admin Only) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Home Cleaning premium (updated)\",\r\n  \"description\": \"Services for cleaning homes, including vacuuming and dusting.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/categories/6752b1d7096f800e45639317",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"categories",
+								"6752b1d7096f800e45639317"
+							]
+						},
+						"description": "\n### Update Category\nThis endpoint is used to update a specific category in the admin panel.\n\n#### Request\n- Method: PUT\n- URL: `{{localhost}}/api/admin/categories/6752b1d7096f800e45639317`\n- Body:\n  - name (text, required): Updated name of the category\n  - description (text, required): Updated description of the category\n\n#### Response\nThe response for this request is a JSON object with the updated category details. Below is the JSON schema for the response:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"description\": {\n      \"type\": \"string\"\n    },\n    \"createdAt\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"updatedAt\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category (Admin Only) Copy 2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/admin/categories/6752b7b152a4bf7226034997",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"categories",
+								"6752b7b152a4bf7226034997"
+							]
+						},
+						"description": "\n### Delete Category\nThis endpoint is used to delete a specific category.\n\n#### Request\n- Method: DELETE\n- URL: `{{localhost}}/api/admin/categories/6752b7b152a4bf7226034997`\n\n#### Response\nThe response for this request is a JSON schema with the following properties:\n- `message`: A string indicating the outcome of the deletion operation.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Category (Admin Only) Copy 3",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/admin/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"categories"
+							]
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve a list of categories from the admin API. The request does not contain a request body as it is a GET request. The response will include an array of category objects, each containing information about a specific category such as its ID, name, and any other relevant details.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transactions (Admin Only) Copy 4",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/admin/transactions",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"transactions"
+							]
+						},
+						"description": "\n### Get Admin Transactions\n\nThis endpoint retrieves the transactions related to the admin.\n\n#### Request\n\n- Method: GET\n- URL: `{{localhost}}/api/admin/transactions`\n\n#### Response\n\nThe response for this request can be described using the following JSON schema:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"transactions\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"string\" },\n          \"amount\": { \"type\": \"number\" },\n          \"date\": { \"type\": \"string\", \"format\": \"date-time\" },\n          \"status\": { \"type\": \"string\" }\n          // Add more properties as per the actual response\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Post Transactions (Admin Only) Copy 5",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NmE1YWQzZjQ0MjgzN2U5ZWE3MjIiLCJlbWFpbCI6IkFkbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNjg5ODU5LCJleHAiOjE3MzQyOTQ2NTl9.jdDAHusSHKv1lIUG7M02GdanGAYlvVHn9RPW1S8Mphc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": \"648f5a9d4f4f9c0012e435b7\",\r\n  \"amount\": 1500,\r\n  \"type\": \"deposit\",\r\n  \"description\": \"Adding funds to wallet\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/transactions",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"transactions"
+							]
+						},
+						"description": "\n### API Request Description\n\nThis endpoint allows an admin to create a new transaction.\n\n#### Request Body\n- `user` (string): The ID of the user involved in the transaction.\n- `amount` (number): The amount of the transaction.\n- `type` (string): The type of transaction (e.g., deposit, withdrawal).\n- `description` (string): A description of the transaction.\n\n#### Response\nThe response will be in JSON format and will follow the schema below:\n\n```json\n{\n  \"transactionId\": \"string\",\n  \"user\": \"string\",\n  \"amount\": \"number\",\n  \"type\": \"string\",\n  \"description\": \"string\",\n  \"timestamp\": \"string\"\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Transactions (Admin Only) Copy 6",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"completed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/transactions/6752bd3b134544e5484a51a6/withdrawal",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"transactions",
+								"6752bd3b134544e5484a51a6",
+								"withdrawal"
+							]
+						},
+						"description": "\n# Update Transaction Withdrawal Status\n\nThis endpoint allows the admin to update the status of a specific transaction withdrawal.\n\n## Request\n\n### Request Body\n\n- `status` (string, required): The new status of the transaction withdrawal. Possible values: \"completed\".\n\n## Response\n\nThe response for this request is a JSON object conforming to the following schema:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    },\n    \"data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"string\"\n        },\n        \"status\": {\n          \"type\": \"string\"\n        },\n        \"amount\": {\n          \"type\": \"number\"\n        },\n        \"timestamp\": {\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        }\n      }\n    }\n  }\n}\n```\n\nThe response will contain a `message` indicating the outcome of the request, and `data` object providing details of the updated transaction withdrawal including its `id`, `status`, `amount`, and `timestamp`.\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Transactions (Admin Only) Copy 7",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYjE0MTA5NmY4MDBlNDU2MzkzMTEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3MjU5MiwiZXhwIjoxNzMzNDc2MTkyfQ.yPvA4p8ua_pNkBgBhvQlknOeP6MvaBsknrPGtyoUXy0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"completed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/transactions/6752bd3b134544e5484a51a6",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"transactions",
+								"6752bd3b134544e5484a51a6"
+							]
+						},
+						"description": "\n### Delete Transaction\nThis endpoint is used to delete a specific transaction by providing the transaction ID in the URL.\n\n#### Request\n- Method: DELETE\n- URL: `{{localhost}}/api/admin/transactions/6752bd3b134544e5484a51a6`\n- Headers: \n    - Content-Type: application/json\n- Body: \n    ```json\n    {\n        \"status\": \"completed\"\n    }\n    ```\n\n#### Response\nThe response for this request is a JSON schema. The specific structure of the response will depend on the server implementation and the success or failure of the request.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Platform Analytics (Admin Only) Copy 8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NmE1YWQzZjQ0MjgzN2U5ZWE3MjIiLCJlbWFpbCI6IkFkbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNjg5ODU5LCJleHAiOjE3MzQyOTQ2NTl9.jdDAHusSHKv1lIUG7M02GdanGAYlvVHn9RPW1S8Mphc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/analytics/platform-stats",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"analytics",
+								"platform-stats"
+							]
+						},
+						"description": "\nThis endpoint retrieves platform statistics for admin analytics. It is an HTTP GET request to {{localhost}}/api/admin/analytics/platform-stats.\n\n### Request\nNo request body is required for this endpoint.\n\n### Response\nThe response will include the platform statistics data, such as the number of users, active sessions, and other relevant platform metrics.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Platform Analytics Export (Admin Only) Copy 9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYzM1ZTEzNDU0NGU1NDg0YTUxYzEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3NzIyOCwiZXhwIjoxNzMzNDgwODI4fQ.Xw70goa8fgDRivVh_xZ4MHCFA8AIPVEpz8BJ0SKZoL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"completed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/analytics/export?type=transactions&startDate=2024-01-01&endDate=2024-12-31",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"analytics",
+								"export"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "transactions"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-12-31"
+								}
+							]
+						},
+						"description": "\n### Get Analytics Export\nThis endpoint is used to retrieve analytics export data for transactions within a specified date range.\n\n#### Request Parameters\n- `type` (query parameter) - Specifies the type of analytics export, in this case, \"transactions\".\n- `startDate` (query parameter) - Specifies the start date of the date range for the analytics export.\n- `endDate` (query parameter) - Specifies the end date of the date range for the analytics export.\n\n#### Request Body\n- `status` (raw) - Specifies the status of the export, in this case, \"completed\".\n\n#### Response\nThe response will contain the analytics export data for the specified type and date range.\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Platform Analytics Export (Admin Only) Copy 10",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYzM1ZTEzNDU0NGU1NDg0YTUxYzEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3NzIyOCwiZXhwIjoxNzMzNDgwODI4fQ.Xw70goa8fgDRivVh_xZ4MHCFA8AIPVEpz8BJ0SKZoL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"completed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/analytics/export?type=orders&startDate=2024-01-01&endDate=2024-12-31",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"analytics",
+								"export"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "orders"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-12-31"
+								}
+							]
+						},
+						"description": "\n# Admin Analytics Export\n\nThis endpoint is used to export analytics data for a specific type within a given date range.\n\n## Request\n\n### Query Parameters\n- `type` (string, required): Specifies the type of analytics data to export.\n- `startDate` (string, required): The start date of the date range in the format 'YYYY-MM-DD'.\n- `endDate` (string, required): The end date of the date range in the format 'YYYY-MM-DD'.\n\n### Request Body\n- `status` (string, required): Specifies the status of the analytics data to be exported.\n\nExample:\n```json\n{\n    \"status\": \"completed\"\n}\n\n## Response\n\nThe response for this request is a JSON object conforming to the following schema:\n\n```json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"exportId\": {\n            \"type\": \"string\"\n        },\n        \"status\": {\n            \"type\": \"string\"\n        },\n        \"downloadLink\": {\n            \"type\": \"string\"\n        }\n    }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Platform Settings (Admin Only)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYzM1ZTEzNDU0NGU1NDg0YTUxYzEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3NzIyOCwiZXhwIjoxNzMzNDgwODI4fQ.Xw70goa8fgDRivVh_xZ4MHCFA8AIPVEpz8BJ0SKZoL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"completed\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/settings",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Platform Settings (Admin Only) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYzM1ZTEzNDU0NGU1NDg0YTUxYzEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3NzIyOCwiZXhwIjoxNzMzNDgwODI4fQ.Xw70goa8fgDRivVh_xZ4MHCFA8AIPVEpz8BJ0SKZoL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"commissionPercentage\": 15,\r\n  \"defaultDeliveryTime\": 10,\r\n  \"termsOfService\": \"Updated Terms of Service\",\r\n  \"minimumWithdrawalAmount\": 100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/settings",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"settings"
+							]
+						},
+						"description": "### API Request Description\n\nThis endpoint makes an HTTP GET request to retrieve the admin settings.\n\n- Method: GET\n    \n- URL: {{localhost}}/api/admin/settings\n    \n\n#### Request Body\n\n- { \"status\": \"completed\"}\n    \n\n### Response JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"setting1\": {\n      \"type\": \"string\"\n    },\n    \"setting2\": {\n      \"type\": \"number\"\n    },\n    \"setting3\": {\n      \"type\": \"boolean\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Flagged Reviews (Admin Only) Copy 2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYzM1ZTEzNDU0NGU1NDg0YTUxYzEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3NzIyOCwiZXhwIjoxNzMzNDgwODI4fQ.Xw70goa8fgDRivVh_xZ4MHCFA8AIPVEpz8BJ0SKZoL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"commissionPercentage\": 15,\r\n  \"defaultDeliveryTime\": 10,\r\n  \"termsOfService\": \"Updated Terms of Service\",\r\n  \"minimumWithdrawalAmount\": 100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/reviews/flagged",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"reviews",
+								"flagged"
+							]
+						},
+						"description": "\n# GET /api/admin/reviews/flagged\n\nThis endpoint is used to retrieve a list of flagged reviews for administrative purposes.\n\n## Request\nNo request body is required for this request.\n\n## Response\nThe response for this request will be a JSON object with the following properties:\n\n- `reviewId`: (string) The unique identifier for the flagged review.\n- `userId`: (string) The user ID associated with the flagged review.\n- `reason`: (string) The reason for flagging the review.\n- `flaggedBy`: (string) The user who flagged the review.\n- `timestamp`: (string) The timestamp when the review was flagged.\n\nExample response:\n```json\n{\n  \"reviewId\": \"abc123\",\n  \"userId\": \"user123\",\n  \"reason\": \"Inappropriate content\",\n  \"flaggedBy\": \"admin456\",\n  \"timestamp\": \"2022-01-01T12:00:00Z\"\n}\n```\n\n### JSON Schema\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"reviewId\": {\n      \"type\": \"string\"\n    },\n    \"userId\": {\n      \"type\": \"string\"\n    },\n    \"reason\": {\n      \"type\": \"string\"\n    },\n    \"flaggedBy\": {\n      \"type\": \"string\"\n    },\n    \"timestamp\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Handle Flagged Reviews (Admin Only) Copy 3",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyYzM1ZTEzNDU0NGU1NDg0YTUxYzEiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ3NzIyOCwiZXhwIjoxNzMzNDgwODI4fQ.Xw70goa8fgDRivVh_xZ4MHCFA8AIPVEpz8BJ0SKZoL4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"remove\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/reviews/:id",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Support Tickets (Admin Only) Copy 4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NmE1YWQzZjQ0MjgzN2U5ZWE3MjIiLCJlbWFpbCI6IkFkbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNjg5ODU5LCJleHAiOjE3MzQyOTQ2NTl9.jdDAHusSHKv1lIUG7M02GdanGAYlvVHn9RPW1S8Mphc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/support/tickets",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"support",
+								"tickets"
+							]
+						},
+						"description": "\n### Get Support Tickets\n\nThis endpoint retrieves a list of support tickets for admin users.\n\n#### Request\n\n- Method: GET\n- URL: `{{localhost}}/api/admin/support/tickets`\n\n#### Response\nThe response for this request is a JSON object conforming to the following schema:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"tickets\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"subject\": {\n            \"type\": \"string\"\n          },\n          \"status\": {\n            \"type\": \"string\"\n          },\n          \"created_at\": {\n            \"type\": \"string\",\n            \"format\": \"date-time\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Support Tickets (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyMGRmNzhiN2RiODg5ZDVkYjY0MjkiLCJlbWFpbCI6Ikphd2FkMzEyQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNTMwMTYwLCJleHAiOjE3MzM1MzM3NjB9.2H4O6AByIV0yIeKpcEGoiDdbkHq7FEq3wmpRuXT72HU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"adminId\": \"6752d6e9e3d4534adc69cf73\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/support/tickets/675391b1abb9e4d6dabfd04d/assign",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"support",
+								"tickets",
+								"675391b1abb9e4d6dabfd04d",
+								"assign"
+							]
+						},
+						"description": "\n### Update Admin Assignment\n\nThis endpoint is used to assign an admin to a support ticket.\n\n#### Request Body\n- `adminId` (string, required): The ID of the admin to be assigned to the ticket.\n\n#### Response\nThe response for this request follows the JSON schema below:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Support Tickets (Admin Only) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyZDZlOWUzZDQ1MzRhZGM2OWNmNzMiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNUBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ4MjIyNiwiZXhwIjoxNzMzNDg1ODI2fQ.Q48fx0gtQclJJ2aG8d-ZUJ0hE3CyAeY_8i0KmTZ3QhA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"resolved\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/support/tickets/6752d99bd493923cfb92b21b/status",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"support",
+								"tickets",
+								"6752d99bd493923cfb92b21b",
+								"status"
+							]
+						},
+						"description": "\n### Update Ticket Status\nThis endpoint is used to update the status of a support ticket.\n\n#### Request\n- Method: PUT\n- URL: `{{localhost}}/api/admin/support/tickets/6752d99bd493923cfb92b21b/status`\n- Body:\n  - `status` (string, required): The new status of the support ticket. Possible values include \"resolved\", \"pending\", \"in-progress\", etc.\n\n#### Response\nThe response for this request will be a JSON object with the following schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    },\n    \"ticketId\": {\n      \"type\": \"string\"\n    },\n    \"status\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Support Tickets (Admin Only) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUyZDZlOWUzZDQ1MzRhZGM2OWNmNzMiLCJlbWFpbCI6Imphd2Fkc2FsZWVtNUBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UyMCIsIm5hbWUiOiJhZG1pbiIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDZUMDY6MzQ6MDYuNjE0WiIsIl9fdiI6MH0sImlhdCI6MTczMzQ4MjIyNiwiZXhwIjoxNzMzNDg1ODI2fQ.Q48fx0gtQclJJ2aG8d-ZUJ0hE3CyAeY_8i0KmTZ3QhA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"67529ae84b501b75062fce24\", \r\n  \"issue\": \"Login Issue\", \r\n  \"description\": \"Unable to log in after resetting the password.\",\r\n  \"priority\": \"high\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/admin/support/tickets",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"support",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Support Tickets (All Users)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MjY4OTksImV4cCI6MTczMzUzMDQ5OX0.0EKpDCaBwNZcQu9Es_pb53klwf20qus8-Jx8Ev2nJY8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"issue\": \"Unable to update gig details\",\r\n  \"description\": \"I tried updating the description of my gig, but it is not saving.\",\r\n  \"priority\": \"high\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/support-tickets",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"support-tickets"
+							]
+						},
+						"description": "### Create a Support Ticket\n\nThis endpoint allows an admin user to create a support ticket for a specific user.\n\n#### Request Body\n\n- `userId` (string): The ID of the user for whom the ticket is being created.\n    \n- `issue` (string): A brief description of the issue.\n    \n- `description` (string): Detailed description of the issue.\n    \n- `priority` (string): The priority level of the ticket (e.g., high, medium, low).\n    \n\n#### Response\n\nThe response for this request follows the JSON schema below:\n\n``` json\n{\n  \"ticketId\": \"string\",\n  \"userId\": \"string\",\n  \"issue\": \"string\",\n  \"description\": \"string\",\n  \"priority\": \"string\",\n  \"status\": \"string\",\n  \"createdAt\": \"string\"\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GigWorker",
+			"item": [
+				{
+					"name": "Create a New Gig",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NWYxNmQzZjQ0MjgzN2U5ZWE2ZTIiLCJlbWFpbCI6ImZ0b29yaTEyM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTFlNTllYjBiMDgyZDAyNDMwN2RlMCIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjIzNVoiLCJfX3YiOjB9LCJpYXQiOjE3MzM1ODY1MDQsImV4cCI6MTczMzU5MDEwNH0.miAReV-DX2Y-BaizRb2ytCRldNGbzNBp6R4Ok-omQvo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Third Gig\",\r\n  \"description\": \"I will do it\",\r\n  \"category\": \"67546aafd3f442837e9ea728\",  // Replace with actual category ID\r\n  \"amount\": 23,\r\n  \"skills\": [\"First skill\", \"second skill\"],\r\n  \"deliveryTime\": 1,\r\n  \"images\": [\"image1_url\", \"image2_url\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/gigs",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"gigs"
+							]
+						},
+						"description": "\n### Create a Gig Worker Gig\n\nThis endpoint allows the creation of a new gig by a gig worker.\n\n#### Request Body\n- title (string, required): The title of the gig.\n- description (string, required): A brief description of the gig.\n- category (string, required): The ID of the category to which the gig belongs.\n- amount (number, required): The amount set for the gig.\n- skills (array of strings, required): The skills required for the gig.\n- deliveryTime (number, required): The delivery time in days for the gig.\n- images (array of strings, required): URLs of images related to the gig.\n\n#### Response (JSON Schema)\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"gigId\": {\n      \"type\": \"string\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Gigs for the Logged-in Gig Worker",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NWYxNmQzZjQ0MjgzN2U5ZWE2ZTIiLCJlbWFpbCI6ImZ0b29yaTEyM0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTFlNTllYjBiMDgyZDAyNDMwN2RlMCIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjIzNVoiLCJfX3YiOjB9LCJpYXQiOjE3MzM1ODY1MDQsImV4cCI6MTczMzU5MDEwNH0.miAReV-DX2Y-BaizRb2ytCRldNGbzNBp6R4Ok-omQvo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/gigs",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"gigs"
+							]
+						},
+						"description": "\n### Get Gig Worker Gigs\n\nThis endpoint retrieves a list of gigs for the gig worker.\n\n#### Request\n\n- Method: GET\n- URL: `{{localhost}}/api/gigWorker/gigs`\n\n#### Response\nThe response for this request is a JSON object with the following schema:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"gigs\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          // Schema for gig properties\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get gig by specific ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MTg5NDksImV4cCI6MTczMzUyMjU0OX0.sZZGdXvsn1QpLLT1Q4jF6GtQlWn_g_Vakt7gCXesMaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/gigs/67536a74a890625c2376cc52",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"gigs",
+								"67536a74a890625c2376cc52"
+							]
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to retrieve information about a specific gig worker gig. The request does not include a request body, as it is a GET request. The response will include details about the gig, such as the gig ID, title, description, location, and other relevant information.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a specific Gig By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MTg5NDksImV4cCI6MTczMzUyMjU0OX0.sZZGdXvsn1QpLLT1Q4jF6GtQlWn_g_Vakt7gCXesMaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Premium Logo Design\",\r\n  \"description\": \"Design a premium logo for your business\",\r\n  \"category\": \"675360d1a6d3c93140b09f8a\",\r\n  \"amount\": 150,\r\n  \"skills\": [\"Adobe Illustrator\", \"Branding\", \"Logo Design\"],\r\n  \"deliveryTime\": 7,\r\n  \"images\": [\"image1_updated.jpg\", \"image2_updated.jpg\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/gigs/67536a74a890625c2376cc52",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"gigs",
+								"67536a74a890625c2376cc52"
+							]
+						},
+						"description": "\nThe API endpoint allows the user to update a specific gig worker's gig by sending an HTTP PUT request to the specified URL. The request should include the updated details such as title, description, category, amount, skills, delivery time, and images in the request body.\n\n### Response\nThe response of this request is a JSON schema representing the structure of the updated gig worker's gig. The schema will outline the properties and their data types that can be expected in the response.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete gig based on ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MTg5NDksImV4cCI6MTczMzUyMjU0OX0.sZZGdXvsn1QpLLT1Q4jF6GtQlWn_g_Vakt7gCXesMaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/gigs/67536a74a890625c2376cc52",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"gigs",
+								"67536a74a890625c2376cc52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Orders (Signed IN)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1YmEyNmI2NjhhYjY0ZDc4ZGExYWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM3MDcyNzQsImV4cCI6MTczNDMxMjA3NH0.ZdTeX1DwcYGSI8S6S8Bc2bCBCq4E8rDfo1-ATad39ag",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"orders"
+							]
+						},
+						"description": "\n### Get Gig Worker Orders\n\nThis endpoint is used to retrieve orders for a gig worker.\n\n#### Request\n\n- Method: GET\n- URL: `{{localhost}}/api/gigWorker/orders`\n\n#### Response\n\nThe response for this request will be a JSON object containing the schema for the orders data. The schema will include the structure and data types of the fields returned in the response.\n\nExample response schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"orderId\": {\n      \"type\": \"string\"\n    },\n    \"orderDate\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"customerName\": {\n      \"type\": \"string\"\n    },\n    \"orderStatus\": {\n      \"type\": \"string\"\n    },\n    \"totalAmount\": {\n      \"type\": \"number\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1YmEyNmI2NjhhYjY0ZDc4ZGExYWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM3MDcyNzQsImV4cCI6MTczNDMxMjA3NH0.ZdTeX1DwcYGSI8S6S8Bc2bCBCq4E8rDfo1-ATad39ag",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"in_progress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/orders/67539c9322f922f72b6c6429/status",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"orders",
+								"67539c9322f922f72b6c6429",
+								"status"
+							]
+						},
+						"description": "\n### Update Order Status\nThis endpoint is used to update the status of a specific order for a gig worker.\n\n#### Request Body\n- `status` (string, required): The new status of the order. Possible values include \"in_progress\", \"completed\", \"cancelled\", etc.\n\n#### Response\nThe response schema for this request is as follows:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"orderId\": {\n      \"type\": \"string\"\n    },\n    \"status\": {\n      \"type\": \"string\"\n    },\n    \"updatedAt\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetches all reviews for a specific gig",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1YmEyNmI2NjhhYjY0ZDc4ZGExYWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM3MDcyNzQsImV4cCI6MTczNDMxMjA3NH0.ZdTeX1DwcYGSI8S6S8Bc2bCBCq4E8rDfo1-ATad39ag",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/6755cb22263999f339419a61/reviews",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"6755cb22263999f339419a61",
+								"reviews"
+							]
+						},
+						"description": "\n### Get Gig Worker Reviews\n\nThis endpoint retrieves the reviews for a specific gig worker.\n\n#### Request\n\n- Method: GET\n- URL: `{{localhost}}/api/gigWorker/67536f6ccdd37d59dcba2c60/reviews`\n\n#### Response\nThe response for this request can be documented as a JSON schema. Here is an example of the JSON schema for the response:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"reviews\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"reviewId\": {\n            \"type\": \"string\"\n          },\n          \"rating\": {\n            \"type\": \"number\"\n          },\n          \"comment\": {\n            \"type\": \"string\"\n          },\n          \"reviewer\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetches all reviews for all gigs of the logged-in gig worker.",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1YmEyNmI2NjhhYjY0ZDc4ZGExYWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM3MDcyNzQsImV4cCI6MTczNDMxMjA3NH0.ZdTeX1DwcYGSI8S6S8Bc2bCBCq4E8rDfo1-ATad39ag",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/reviews",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"reviews"
+							]
+						},
+						"description": "\n### Get Gig Worker Reviews\n\nThis endpoint is used to retrieve reviews for a gig worker.\n\n#### Request\n\n- Method: GET\n- URL: `{{localhost}}/api/gigWorker/reviews`\n\n#### Response\n\nThe response for this request is a JSON object conforming to the following schema:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"reviews\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"reviewId\": {\n            \"type\": \"string\"\n          },\n          \"rating\": {\n            \"type\": \"number\"\n          },\n          \"comment\": {\n            \"type\": \"string\"\n          },\n          \"reviewerName\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Analytics From A Specific Gig",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1YmEyNmI2NjhhYjY0ZDc4ZGExYWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM3MDcyNzQsImV4cCI6MTczNDMxMjA3NH0.ZdTeX1DwcYGSI8S6S8Bc2bCBCq4E8rDfo1-ATad39ag",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/gigWorker/gigs/67536f6ccdd37d59dcba2c60/analytics",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"gigWorker",
+								"gigs",
+								"67536f6ccdd37d59dcba2c60",
+								"analytics"
+							]
+						},
+						"description": "This endpoint retrieves analytics data for a specific gig worker's gigs. It makes an HTTP GET request to the specified URL.\n\n### Request Body\n\nThis request does not require a request body.\n\n### Response Body\n\n- `analyticsData`: (object) The analytics data for the specified gig worker's gigs.\n    \n    - `totalGigs`: (number) The total number of gigs.\n        \n    - `completedGigs`: (number) The number of completed gigs.\n        \n    - `pendingGigs`: (number) The number of pending gigs.\n        \n    - `earnings`: (number) The total earnings from gigs."
+					},
+					"response": []
+				},
+				{
+					"name": "Creating New Discount Offer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MzA3NTEsImV4cCI6MTczMzUzNDM1MX0.nYewr_cvaAyLbXJ3-WyOK3w4bM-wgQPEjoltKsLjGtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"discountPercentage\": 20,\r\n  \"startDate\": \"2024-12-01T00:00:00Z\",\r\n  \"endDate\": \"2024-12-15T00:00:00Z\",\r\n  \"conditions\": \"Discount valid for orders above $100\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/discounts",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"discounts"
+							]
+						},
+						"description": "\n### Add Discount\nThis endpoint allows the client to add a new discount by sending an HTTP POST request to the specified URL.\n\n#### Request Body\n- `discountPercentage` (number): The percentage value of the discount.\n- `startDate` (string): The start date and time for the discount to be applicable.\n- `endDate` (string): The end date and time for the discount to be applicable.\n- `conditions` (string): Additional conditions for the discount, such as minimum order amount.\n\n#### Response\nThe response will include the details of the newly added discount.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all the discounts offered by Logged In Worker",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MzA3NTEsImV4cCI6MTczMzUzNDM1MX0.nYewr_cvaAyLbXJ3-WyOK3w4bM-wgQPEjoltKsLjGtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/discounts",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"discounts"
+							]
+						},
+						"description": "\nThis endpoint sends an HTTP GET request to retrieve a list of discounts from the server.\n\n### Response\nThe response for this request can be documented as a JSON schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"discounts\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"name\": {\n            \"type\": \"string\"\n          },\n          \"percentage\": {\n            \"type\": \"number\"\n          }\n        },\n        \"required\": [\"id\", \"name\", \"percentage\"]\n      }\n    }\n  },\n  \"required\": [\"discounts\"]\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get the discount by specific Gig id.",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/discounts/67536f6ccdd37d59dcba2c60",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"discounts",
+								"67536f6ccdd37d59dcba2c60"
+							]
+						},
+						"description": "\n### Get Discount Details\nThis endpoint retrieves the details of a specific discount identified by the provided discount ID.\n\n#### Request\n- Method: GET\n- Endpoint: `{{localhost}}/api/discounts/67536f6ccdd37d59dcba2c60`\n\n#### Response\nThe response for this request is a JSON object representing the details of the discount. Below is a sample JSON schema for the response:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"discountId\": {\n      \"type\": \"string\"\n    },\n    \"discountAmount\": {\n      \"type\": \"number\"\n    },\n    \"expiryDate\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n    // Additional properties may be included based on the specific discount details\n  },\n  \"required\": [\"discountId\", \"discountAmount\", \"expiryDate\"]\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/admin/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"categories"
+							]
+						},
+						"description": "This endpoint sends an HTTP GET request to retrieve the list of categories from the admin API. The response of this request can be documented as a JSON schema to describe the structure and properties of the returned data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Get the discount by specific Gig id. Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUzIiwibmFtZSI6ImdpZ193b3JrZXIiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjI0M1oiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MzA3NTEsImV4cCI6MTczMzUzNDM1MX0.nYewr_cvaAyLbXJ3-WyOK3w4bM-wgQPEjoltKsLjGtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/order",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order By Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzOWEzMWUwN2Y4MDRmNzgxOGQ4YTEiLCJlbWFpbCI6IkNsaWVudEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTFlNTllYjBiMDgyZDAyNDMwN2RlMCIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjIzNVoiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MzIyMjAsImV4cCI6MTczMzUzNTgyMH0.t3cRNYNLAd81CddVujqI8d-JW_Gu5IvTBiUqScWqutg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"67536f6ccdd37d59dcba2c60\",  // The ID of the gig the client wants to order\r\n  \"title\": \"Order Title\",\r\n  \"description\": \"Description of the order\",\r\n  \"amount\": 100,\r\n  \"deliveryDate\": \"2024-12-15T00:00:00Z\",\r\n  \"milestones\": [\r\n    {\r\n      \"description\": \"Milestone 1\",\r\n      \"amount\": 50\r\n    },\r\n    {\r\n      \"description\": \"Milestone 2\",\r\n      \"amount\": 50\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/client/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"client",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register New Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"siddiqi\",\r\n  \"email\": \"siddiqi@gmail.com\",\r\n  \"password\": \"siddiqi\",\r\n  \"role\": \"admin\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/register",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"ahmed@gmail.com\",\r\n  \"password\": \"ahmed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/api/auth/login",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch gigs by list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzOWEzMWUwN2Y4MDRmNzgxOGQ4YTEiLCJlbWFpbCI6IkNsaWVudEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTFlNTllYjBiMDgyZDAyNDMwN2RlMCIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjIzNVoiLCJfX3YiOjB9LCJpYXQiOjE3MzM2NzU4MzQsImV4cCI6MTczNDI4MDYzNH0.gO3yz6ONiqg9gwke1NM_aI1F8Tzh1vAChny0Jr-ypUI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/saved-gigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"saved-gigs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename a custom list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/saved-gigs/lists/Top Picks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"saved-gigs",
+								"lists",
+								"Top Picks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Custom List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/clients/saved-gigs/12345abcdef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"clients",
+								"saved-gigs",
+								"12345abcdef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Gig to a list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzOWEzMWUwN2Y4MDRmNzgxOGQ4YTEiLCJlbWFpbCI6IkNsaWVudEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTFlNTllYjBiMDgyZDAyNDMwN2RlMCIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjIzNVoiLCJfX3YiOjB9LCJpYXQiOjE3MzM2NzU4MzQsImV4cCI6MTczNDI4MDYzNH0.gO3yz6ONiqg9gwke1NM_aI1F8Tzh1vAChny0Jr-ypUI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"6755cb22263999f339419a61\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/saved-gigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"saved-gigs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a Gig from List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\":\"\",\r\n  \"rating\": 4,\r\n  \"comment\": \"Updated the review after clarifications.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/saved-gigs/648dbedf5e1b2b6f3e98d1a2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"saved-gigs",
+								"648dbedf5e1b2b6f3e98d1a2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve all orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve orders filtered by status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/orders?status=completed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place a custom order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzOWEzMWUwN2Y4MDRmNzgxOGQ4YTEiLCJlbWFpbCI6IkNsaWVudEBnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTFlNTllYjBiMDgyZDAyNDMwN2RlMCIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA1VDE3OjQwOjQ2LjIzNVoiLCJfX3YiOjB9LCJpYXQiOjE3MzM1MzIyMjAsImV4cCI6MTczMzUzNTgyMH0.t3cRNYNLAd81CddVujqI8d-JW_Gu5IvTBiUqScWqutg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"6755cb22263999f339419a61\",\r\n  \"amount\": 150,\r\n  \"paymentMethod\": \"paypal\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/order/custom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"order",
+								"custom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new payment method",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"credit_card\",\r\n  \"details\": {\r\n    \"cardNumber\": \"4111111111111111\",\r\n    \"expiryDate\": \"12/24\"\r\n  },\r\n  \"isDefault\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a payment method",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"details\": {\r\n    \"cardNumber\": \"4222222222222222\",\r\n    \"expiryDate\": \"01/25\"\r\n  },\r\n  \"isDefault\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/payments/67555c198f16058be57cdc67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"67555c198f16058be57cdc67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a payment method",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/payments/67555c198f16058be57cdc67",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"67555c198f16058be57cdc67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payment History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/payments/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"payments",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new collaboration",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderId\": \"3f4e5d6f7g8h9i0j\",\r\n  \"message\": \"This is a new collaboration message.\",\r\n  \"attachments\": [\"https://example.com/file1.png\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"3123f4e5d6f7g8h9i0j\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Great service!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"Updated comment: Excellent service!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/reviews/3123f4e5d6f7g8h9i0j",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"reviews",
+								"3123f4e5d6f7g8h9i0j"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reviews by a client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/notifications",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Notifications New page",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/notifications?page=2&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Notification as Read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/notifications/342aadsad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications",
+								"342aadsad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark all notifications as read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY0NDQzNCwiZXhwIjoxNzM2MjM2NDM0fQ.E4kMMFd_a0ATfbNBDjumb77DZxgLOK8zMMjEe8zEUYI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/notifications/mark-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"notifications",
+								"mark-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sentimental Aanalysis of Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"gigId\": \"gigId_here\",\r\n  \"rating\": 5,\r\n  \"comment\": \"The service was amazing!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Client",
+			"item": [
+				{
+					"name": "Get profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUwIiwibmFtZSI6ImNsaWVudCIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDVUMTc6NDA6NDYuMjM1WiIsIl9fdiI6MH0sImlhdCI6MTczMzcwNTY3MywiZXhwIjoxNzM0MzEwNDczfQ.Gs0eyCFDNzIlvzrM9PaFU9C0zjNutJB_xsOaXobrLZs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/client/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"profile"
+							]
+						},
+						"description": "# Client Profile API\n\nThis API endpoint is used to retrieve the profile of a client.\n\n## Request\n\n- Method: GET\n    \n- Endpoint: `http://localhost:3000/api/client/profile`\n    \n\n## Response\n\nThe response for this request is a JSON object representing the client's profile. Below is the JSON schema for the response:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"clientID\": {\n      \"type\": \"string\"\n    },\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"email\": {\n      \"type\": \"string\"\n    },\n    \"phone\": {\n      \"type\": \"string\"\n    },\n    \"address\": {\n      \"type\": \"string\"\n    }\n    // Add more properties as per the actual response\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUwIiwibmFtZSI6ImNsaWVudCIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDVUMTc6NDA6NDYuMjM1WiIsIl9fdiI6MH0sImlhdCI6MTczMzcwNTY3MywiZXhwIjoxNzM0MzEwNDczfQ.Gs0eyCFDNzIlvzrM9PaFU9C0zjNutJB_xsOaXobrLZs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated Name\",\r\n  \"bio\": \"Updated bio content\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"profile"
+							]
+						},
+						"description": "### Update Client Profile\n\nThis endpoint is used to update the profile of a client.\n\n#### Request Body\n\n- `name` (string, required): The updated name of the client.\n    \n- `bio` (string, required): The updated bio content of the client.\n    \n\n#### Response\n\nThe response will be a JSON object following the schema below:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"status\": {\n            \"type\": \"string\"\n        },\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get saved gigs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1ZTk3ZWMwNmI1ODQ0YjE1OTg1OWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtN0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UxYSIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA2VDA2OjM0OjA2LjUzNFoiLCJfX3YiOjB9LCJpYXQiOjE3MzM2ODM1OTQsImV4cCI6MTczNDI4ODM5NH0.gxqKTz7Ua3FEOu6m-Ku6NNC8-x8U1WN80VHZ5iE_9tA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/saved-gigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"saved-gigs"
+							]
+						},
+						"description": "\n### GET /api/client/saved-gigs\n\nThis endpoint retrieves the saved gigs for the client.\n\n#### Request\nNo request body is required for this request.\n\n#### Response\nThe response for this request is a JSON object with the following schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"savedGigs\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"gigId\": {\n            \"type\": \"string\"\n          },\n          \"gigTitle\": {\n            \"type\": \"string\"\n          },\n          \"gigCategory\": {\n            \"type\": \"string\"\n          },\n          \"gigDescription\": {\n            \"type\": \"string\"\n          },\n          \"gigBudget\": {\n            \"type\": \"number\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch All Active Gigs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1ZTk3ZWMwNmI1ODQ0YjE1OTg1OWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtN0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UxYSIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA2VDA2OjM0OjA2LjUzNFoiLCJfX3YiOjB9LCJpYXQiOjE3MzM2ODM1OTQsImV4cCI6MTczNDI4ODM5NH0.gxqKTz7Ua3FEOu6m-Ku6NNC8-x8U1WN80VHZ5iE_9tA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/gigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"gigs"
+							]
+						},
+						"description": "\n### GET /api/client/saved-gigs\n\nThis endpoint retrieves the saved gigs for the client.\n\n#### Request\nNo request body is required for this request.\n\n#### Response\nThe response for this request is a JSON object with the following schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"savedGigs\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"gigId\": {\n            \"type\": \"string\"\n          },\n          \"gigTitle\": {\n            \"type\": \"string\"\n          },\n          \"gigCategory\": {\n            \"type\": \"string\"\n          },\n          \"gigDescription\": {\n            \"type\": \"string\"\n          },\n          \"gigBudget\": {\n            \"type\": \"number\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch  Gigs  Based on Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU1ZTk3ZWMwNmI1ODQ0YjE1OTg1OWYiLCJlbWFpbCI6Imphd2Fkc2FsZWVtN0BnbWFpbC5jb20iLCJyb2xlIjp7Il9pZCI6IjY3NTI5YWRlNGI1MDFiNzUwNjJmY2UxYSIsIm5hbWUiOiJjbGllbnQiLCJwZXJtaXNzaW9ucyI6eyJjcmVhdGVfZ2lnIjpmYWxzZSwidmlld19naWciOnRydWV9LCJjcmVhdGVkQXQiOiIyMDI0LTEyLTA2VDA2OjM0OjA2LjUzNFoiLCJfX3YiOjB9LCJpYXQiOjE3MzM2ODM1OTQsImV4cCI6MTczNDI4ODM5NH0.gxqKTz7Ua3FEOu6m-Ku6NNC8-x8U1WN80VHZ5iE_9tA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/gigs/category/675360d1a6d3c93140b09f8a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"gigs",
+								"category",
+								"675360d1a6d3c93140b09f8a"
+							]
+						},
+						"description": "\n### GET /api/client/saved-gigs\n\nThis endpoint retrieves the saved gigs for the client.\n\n#### Request\nNo request body is required for this request.\n\n#### Response\nThe response for this request is a JSON object with the following schema:\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"savedGigs\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"gigId\": {\n            \"type\": \"string\"\n          },\n          \"gigTitle\": {\n            \"type\": \"string\"\n          },\n          \"gigCategory\": {\n            \"type\": \"string\"\n          },\n          \"gigDescription\": {\n            \"type\": \"string\"\n          },\n          \"gigBudget\": {\n            \"type\": \"number\"\n          }\n        }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzUzNjY1NWU4OWM2ZDU4NTQ3M2Y1NWYiLCJlbWFpbCI6IlVzbWFuQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUwIiwibmFtZSI6ImNsaWVudCIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDVUMTc6NDA6NDYuMjM1WiIsIl9fdiI6MH0sImlhdCI6MTczMzcwNTY3MywiZXhwIjoxNzM0MzEwNDczfQ.Gs0eyCFDNzIlvzrM9PaFU9C0zjNutJB_xsOaXobrLZs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"64bdf123456789abcdef0123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"orders"
+							]
+						},
+						"description": "### Retrieve Client Orders\n\nThis endpoint retrieves the orders for a specific client.\n\n#### Request\n\n- Method: GET\n    \n- URL: `http://localhost:3000/api/client/orders/67539c9322f922f72b6c6429`\n    \n\n#### Response\n\nThe response for this request is a JSON object representing the client's orders. The JSON schema for the response can be documented as follows:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"orderId\": { \"type\": \"string\" },\n    \"product\": { \"type\": \"string\" },\n    \"quantity\": { \"type\": \"number\" },\n    \"status\": { \"type\": \"string\" },\n    \"totalAmount\": { \"type\": \"number\" }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Saved Gig Posting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU2NTdlZDk5NTlmNWZiYTRmNGY4ZmQiLCJlbWFpbCI6ImMxQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGUwIiwibmFtZSI6ImNsaWVudCIsInBlcm1pc3Npb25zIjp7ImNyZWF0ZV9naWciOmZhbHNlLCJ2aWV3X2dpZyI6dHJ1ZX0sImNyZWF0ZWRBdCI6IjIwMjQtMTItMDVUMTc6NDA6NDYuMjM1WiIsIl9fdiI6MH0sImlhdCI6MTczMzcxMTg2NSwiZXhwIjoxNzM0MzE2NjY1fQ.vaRe9XkQpeVzujQpNV6t0mI1pCGyHlVbLw3lew3G0zE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"64bdf123456789abcdef0123\",\r\n  \"description\": \"Order description\",\r\n  \"paymentMethod\": \"credit_card\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/saved-gigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"saved-gigs"
+							]
+						},
+						"description": "## Endpoint Description\n\nThis endpoint is used to save client gigs by sending a POST request to the specified URL.\n\n## Request Body\n\n- gigId (string, required): The unique identifier for the gig.\n    \n- description (string, required): Description of the gig order.\n    \n- paymentMethod (string, required): The payment method for the gig.\n    \n\n## Response\n\nThe response for this request is a JSON object with the following schema:\n\n``` json\n{\n  \"status\": \"string\",\n  \"message\": \"string\",\n  \"data\": {\n    \"savedGigId\": \"string\"\n  }\n}\n\n ```\n\n- status (string): The status of the response.\n    \n- message (string): A message regarding the response status.\n    \n- data (object): An object containing the savedGigId, which is the unique identifier for the saved gig."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/client/orders/64cdef123456789abcdef0123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"orders",
+								"64cdef123456789abcdef0123"
+							]
+						},
+						"description": "This endpoint allows clients to place new orders. The request should be sent as an HTTP POST to the specified URL. The request body should be in raw format and include the following parameters:\n\n- gigId (string): The ID of the gig for which the order is being placed.\n    \n- description (string): A description of the order.\n    \n- paymentMethod (string): The payment method to be used for the order.\n    \n\n### Response\n\nThe response to this request is a JSON object with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```\n\nThe response will have a status code of 400 and a Content-Type of application/json. The JSON schema for the response includes a \"message\" property of type string."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Saved Gig",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"gigId\": \"64bdf123456789abcdef0123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/saved-gigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"saved-gigs"
+							]
+						},
+						"description": "The endpoint allows the client to save a gig by making an HTTP POST request to the specified URL. The request should include a payload with the gigId parameter.\n\n### Request Body\n\n- gigId (string, required): The ID of the gig to be saved.\n    \n\n### Response\n\nThe response will be in JSON format with a status code of 400. The response JSON schema is as follows:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete A saved Gig",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/client/saved-gigs/64bdf123456789abcdef0123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"saved-gigs",
+								"64bdf123456789abcdef0123"
+							]
+						},
+						"description": "### Delete Saved Gig\n\nThis endpoint is used to delete a specific saved gig for a client.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response\n\n- Status: 400\n    \n- Content-Type: application/json\n    \n\n``` json\n{\n    \"message\": \"\"\n}\n\n ```\n\nThe response will contain a message indicating the result of the delete operation."
+					},
+					"response": []
+				},
+				{
+					"name": "Order Set",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"gigId\": \"64bdf123456789abcdef0123\",\r\n\"description\": \"Order description\",\r\n\"paymentMethod\": \"credit_card\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"orders"
+							]
+						},
+						"description": "This endpoint allows clients to place new orders. The request should be sent as an HTTP POST to the specified URL. The request body should be in raw format and include the following parameters:\n\n- gigId (string): The ID of the gig for which the order is being placed.\n    \n- description (string): A description of the order.\n    \n- paymentMethod (string): The payment method to be used for the order.\n    \n\n### Response\n\nThe response to this request is a JSON object with the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```\n\nThe response will have a status code of 400 and a Content-Type of application/json. The JSON schema for the response includes a \"message\" property of type string."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"status\": \"completed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/orders/64cdef123456789abcdef0123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"orders",
+								"64cdef123456789abcdef0123"
+							]
+						},
+						"description": "The HTTP PUT request is used to update the status of a specific order for a client. The request should be made to [http://localhost:3000/api/client/orders/64cdef123456789abcdef0123](http://localhost:3000/api/client/orders/64cdef123456789abcdef0123) with the following payload in the raw request body type:\n\n``` json\n{\n  \"status\": \"completed\"\n}\n\n ```\n\n### Response\n\nThe response for this request is in JSON format and has a status code of 400. The response schema is as follows:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gigId\": \"64bdf123456789abcdef0123\",  // Actual Gig ID from your database\r\n  \"rating\": 5,\r\n  \"comment\": \"Excellent work and very professional!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/review",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"review"
+							]
+						},
+						"description": "### POST /api/client/review\n\nThis endpoint is used to submit a review for a specific gig.\n\n#### Request\n\n- Method: POST\n    \n- Base URL: [http://localhost:3000](http://localhost:3000)\n    \n- Path: /api/client/review\n    \n- Headers:\n    \n    - Content-Type: application/json\n        \n- Body:\n    \n    - gigId (string, required): The unique ID of the gig being reviewed.\n        \n    - rating (number, required): The rating given for the gig, on a scale of 1 to 5.\n        \n    - comment (string, required): The comment or feedback for the gig.\n        \n\n#### Response\n\n- Status: 200\n    \n- Content-Type: text/xml\n    \n- Body: null\n    \n\n#### Response JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"number\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"Updated review after further consideration\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/reviews/64bdf123456789abcdef0123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"reviews",
+								"64bdf123456789abcdef0123"
+							]
+						},
+						"description": "### API Request Description\n\nThis endpoint allows the client to update a specific review identified by the provided ID.\n\n#### Request Body\n\n- `rating` (number): The updated rating for the review.\n    \n- `comment` (string): The updated comment for the review.\n    \n\n#### Response\n\nThe response for this request is in XML format with a status code of 200. However, the response body is null.\n\n### Response JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"number\"\n    },\n    \"content-type\": {\n      \"type\": \"string\"\n    },\n    \"data\": {\n      \"type\": \"null\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Payment Credit Card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTQzNjAzZDZlMGJmODdiOGMwZDgxYyIsImlhdCI6MTczMzY2NTY5OSwiZXhwIjoxNzM2MjU3Njk5fQ.pr2cMmr12ZqhkTlU8xerUxAbiXgsf8MghTCVhxky09k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"credit_card\",\r\n  \"details\": {\r\n    \"cardNumber\": \"4111-1111-1111-1111\",\r\n    \"expiryDate\": \"12/25\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/client/payment-methods",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"client",
+								"payment-methods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all APyment Method",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NTFkYjRiMjQ4YjVkYTkxNmZlMWMyZCIsImlhdCI6MTczMzQxODAyNywiZXhwIjoxNzMzNTA0NDI3fQ.JOwIM7Va0jynGAThH6_HuxkXBtEzvnz1LvdnruQv1J4"
+		},
+		{
+			"key": "admin_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzU0NmE1YWQzZjQ0MjgzN2U5ZWE3MjIiLCJlbWFpbCI6IkFkbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiX2lkIjoiNjc1MWU1OWViMGIwODJkMDI0MzA3ZGU2IiwibmFtZSI6ImFkbWluIiwicGVybWlzc2lvbnMiOnsiY3JlYXRlX2dpZyI6ZmFsc2UsInZpZXdfZ2lnIjp0cnVlfSwiY3JlYXRlZEF0IjoiMjAyNC0xMi0wNVQxNzo0MDo0Ni4yNDdaIiwiX192IjowfSwiaWF0IjoxNzMzNTg1NTIwLCJleHAiOjE3MzM1ODkxMjB9._X69HcAISsyq3upDLgj4_kiA2gGAvDrK8bODs41prTk"
+		}
+	]
+}
