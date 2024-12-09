@@ -12,6 +12,8 @@ const supportRoutes = require("./routes/supportRoutes");
 const discountRoutes = require("./routes/discountRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const clientRoutes= require("./routes/clientRoutes");
+const reviewRoutes = require('./routes/reviewRoutes'); // Adjust path accordingly
+const paymentMethodRoutes = require('./routes/paymentMethodRoutes'); // Adjust path accordingly
 const app = express();
 
 // Connect to MongoDB
@@ -32,6 +34,8 @@ app.use('/api',supportRoutes);
 app.use('/api',discountRoutes);
 app.use('/api',orderRoutes);
 app.use('/api/client',clientRoutes);
+app.use('/api',reviewRoutes);
+app.use('/api',paymentMethodRoutes);
 // --------------------------------
 
 // Error handling middleware
