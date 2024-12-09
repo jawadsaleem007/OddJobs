@@ -61,6 +61,13 @@ router.post(
   ],
   clientController.addPaymentMethod
 );
+
+router.get('/gigs', userAuth, clientController.getAllGigs); // Fetch all active gigs
+router.get('/gigs/search', userAuth, clientController.searchGigs); // Search gigs based on filters
+router.get('/gigs/category/:categoryId', userAuth, clientController.getGigsByCategory); // Get gigs by category
+router.get('/gigs/:id', userAuth, clientController.getGigDetails); // Get details of a specific gig
+router.get('/gigs/trending', userAuth, clientController.getTrendingGigs); // Get trending gigs
+
 router.get('/payment-methods', userAuth, clientController.getPaymentMethods);
 
 module.exports = router;

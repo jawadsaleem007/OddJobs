@@ -38,6 +38,7 @@ class ClientController {
   async getSavedGigs(req, res) {
     try {
       const user = await User.findById(req.user._id).populate('savedGigs');
+      console.log(user.savedGigs);  
       res.json(user.savedGigs);
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
@@ -219,6 +220,145 @@ class ClientController {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
   }
+
+  async getAllGigs(req, res) {
+    try {
+      const { page = 1, limit = 10 } = req.query;
+      const gigs = await Gig.find({ status: 'active' })
+        .populate('user_id', 'name')
+        .populate('category', 'name')
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .sort('-createdAt');
+
+      const count = await Gig.countDocuments({ status: 'active' });
+
+      res.json({
+        gigs,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
+
+  async searchGigs(req, res) {
+    try {
+      const { 
+        query, 
+        category, 
+        minPrice, 
+        maxPrice, 
+        rating,
+        skills,
+        deliveryTime 
+      } = req.query;
+
+      const searchQuery = { status: 'active' };
+
+      // Text search
+      if (query) {
+        searchQuery.$or = [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } }
+        ];
+      }
+
+      // Category filter
+      if (category) {
+        searchQuery.category = category;
+      }
+
+      // Price range filter
+      if (minPrice || maxPrice) {
+        searchQuery.amount = {};
+        if (minPrice) searchQuery.amount.$gte = Number(minPrice);
+        if (maxPrice) searchQuery.amount.$lte = Number(maxPrice);
+      }
+
+      // Rating filter
+      if (rating) {
+        searchQuery.rating = { $gte: Number(rating) };
+      }
+
+      // Skills filter
+      if (skills) {
+        const skillsArray = skills.split(',').map(skill => skill.trim());
+        searchQuery.skills = { $in: skillsArray };
+      }
+
+      // Delivery time filter
+      if (deliveryTime) {
+        searchQuery.deliveryTime = { $lte: Number(deliveryTime) };
+      }
+
+      const gigs = await Gig.find(searchQuery)
+        .populate('user_id', 'name')
+        .populate('category', 'name')
+        .sort('-rating');
+
+      res.json(gigs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
+
+  async getGigsByCategory(req, res) {
+    try {
+      const { categoryId } = req.params;
+      const gigs = await Gig.find({ 
+        category: categoryId,
+        status: 'active'
+      })
+        .populate('user_id', 'name')
+        .populate('category', 'name')
+        .sort('-rating');
+
+      res.json(gigs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
+
+  async getGigDetails(req, res) {
+    try {
+      const gig = await Gig.findById(req.params.id)
+        .populate('user_id', 'name bio rating')
+        .populate('category', 'name')
+        .populate({
+          path: 'reviews',
+          populate: {
+            path: 'client',
+            select: 'name'
+          }
+        });
+
+      if (!gig) {
+        return res.status(404).json({ message: 'Gig not found' });
+      }
+
+      res.json(gig);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
+
+  async getTrendingGigs(req, res) {
+    try {
+      const gigs = await Gig.find({ status: 'active' })
+        .sort('-rating -orders')
+        .limit(10)
+        .populate('user_id', 'name')
+        .populate('category', 'name');
+
+      res.json(gigs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
+
 }
+
 
 module.exports = new ClientController();
