@@ -8,7 +8,7 @@ const platformSettingsController = require('../controllers/platformSettingsContr
 const feedbackController = require('../controllers/feedbackController');
 const supportController = require('../controllers/supportController');
 const { categoryValidators, transactionValidators } = require('../utils/validators');
-
+const userController = require("../controllers/usersController");
 // Category Management Routes
 router.post('/categories', adminAuth, categoryValidators.create, categoryController.addCategory);
 router.put('/categories/:id', adminAuth, categoryValidators.update, categoryController.updateCategory);
@@ -43,6 +43,6 @@ router.post('/support/tickets', adminAuth, supportController.addTicket);
  
 
 
-router.get('/users',adminAuth,)
+router.get('/users',adminAuth,userController.getAllUsers);
 
 module.exports = router;

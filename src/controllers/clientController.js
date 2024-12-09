@@ -1,172 +1,224 @@
-const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const Gig = require('../models/Gig');
 const Order = require('../models/Order');
-// @desc Get all saved gigs for the client
-// @route GET /api/clients/saved-gigs
-// @access Private
-const getSavedGigs = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id).populate('savedGigs'); // populate to get gig details
-    if (!user) {
-        res.status(404);
-        throw new Error('User not found');
+const Review = require('../models/Review');
+const PaymentMethod = require('../models/PaymentMethod');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+
+class ClientController {
+  // Profile Controllers
+  async getProfile(req, res) {
+    try {
+      const user = await User.findById(req.user._id)
+        .select('-password')
+        .populate('savedGigs');
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
-    res.json(user.savedGigs);
-});
+  }
 
-// @desc Save a new gig to the client's wishlist
-// @route POST /api/clients/saved-gigs
-// @access Private
-const saveGig = asyncHandler(async (req, res) => {
-    const { gigId } = req.body;
-    const gig = await Gig.findById(gigId);
-    if (!gig) {
-        res.status(404);
-        throw new Error('Gig not found');
+  async updateProfile(req, res) {
+    try {
+      const { name, bio } = req.body;
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { name, bio },
+        { new: true }
+      ).select('-password');
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
+  }
 
-    const user = await User.findById(req.user._id);
-    if (user.savedGigs && user.savedGigs.includes(gig._id)) {
-        res.status(400);
-        throw new Error('Gig already saved');
+  // Saved Gigs Controllers
+  async getSavedGigs(req, res) {
+    try {
+      const user = await User.findById(req.user._id).populate('savedGigs');
+      res.json(user.savedGigs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
+  }
 
-    // Add the gig to the saved list
-    if (!user.savedGigs) {
-        user.savedGigs = [];
+  async saveGig(req, res) {
+    try {
+      const { gigId } = req.body;
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { $addToSet: { savedGigs: gigId } },
+        { new: true }
+      );
+      res.json(user.savedGigs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
-    user.savedGigs.push(gig._id);
-    await user.save();
-    res.status(201).json({ message: 'Gig saved successfully' });
-});
+  }
 
-// @desc Remove a gig from the client's wishlist
-// @route DELETE /api/clients/saved-gigs/:id
-// @access Private
-const removeSavedGig = asyncHandler(async (req, res) => {
-    const { id: gigId } = req.params;
-    const user = await User.findById(req.user.id);
-    if (!user.savedGigs || !user.savedGigs.includes(gigId)) {
-        res.status(404);
-        throw new Error('Gig not found in saved list');
+  async removeSavedGig(req, res) {
+    try {
+      const { gigId } = req.params;
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { $pull: { savedGigs: gigId } },
+        { new: true }
+      );
+      res.json(user.savedGigs);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
-
-    user.savedGigs = user.savedGigs.filter(
-        (savedGigId) => savedGigId.toString() !== gigId
-    );
-    await user.save();
-    res.status(200).json({ message: 'Gig removed from saved list' });
-});
-
-
-const getClientOrders = asyncHandler(async (req, res) => {
-  const { status } = req.query; // Optional query parameter for filtering by status
-  const query = { client: req.user.id };
-
-  if (status) {
-      query.status = status;
   }
 
-  const orders = await Order.find(query)
-      .populate('gig', 'title description') // Include specific fields from the Gig
-      .select('status amount downloadLink createdAt updatedAt') // Include specific fields
-      .sort({ createdAt: -1 });
+  // Order Controllers
+  async createOrder(req, res) {
+    try {
+      const { gigId, description, paymentMethod } = req.body;
+      const gig = await Gig.findById(gigId);
+      
+      if (!gig) {
+        return res.status(404).json({ message: 'Gig not found' });
+      }
 
-  res.status(200).json(orders);
-});
+      const order = new Order({
+        client: req.user._id,
+        gig: gigId,
+        title: gig.title,
+        description,
+        amount: gig.amount,
+        paymentMethod
+      });
 
-// @desc Place a custom order
-// @route POST /api/orders/custom
-// @access Private
-const placeCustomOrder = asyncHandler(async (req, res) => {
-  const { gigId, amount, paymentMethod } = req.body;
-
-  const gig = await Gig.findById(gigId);
-  if (!gig) {
-      res.status(404);
-      throw new Error('Gig not found');
+      await order.save();
+      res.status(201).json(order);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
   }
 
-  const order = new Order({
-      gig: gigId,
-      client: req.user.id,
-      freelancer: gig.createdBy,
-      amount,
-      paymentMethod,
-  });
-
-  const createdOrder = await order.save();
-  res.status(201).json(createdOrder);
-});
-
-
-const createOrder = asyncHandler(async (req, res) => {
-  const { gigId, title, description, amount, deliveryDate, milestones } = req.body;
-
-  // Find the gig by ID
-  const gig = await Gig.findById(gigId);
-  if (!gig) {
-      res.status(404);
-      throw new Error('Gig not found');
+  async getOrders(req, res) {
+    try {
+      const orders = await Order.find({ client: req.user._id })
+        .populate('gig')
+        .sort('-createdAt');
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
   }
 
-  // Find the client who is creating the order
-  const client = await User.findById(req.user.id);
-  if (!client) {
-      res.status(404);
-      throw new Error('Client not found');
+  async getOrderById(req, res) {
+    try {
+      const order = await Order.findOne({
+        _id: req.params.id,
+        client: req.user._id
+      }).populate('gig');
+      
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
   }
 
-  // Create a new order
-  const order = new Order({
-      client: client._id,
-      gig: gig._id,
-      title,
-      description,
-      amount,
-      deliveryDate,
-      milestones
-  });
-
-  await order.save();
-  res.status(201).json(order);
-});
-
-// @desc Get order by ID
-// @route GET /api/clients/orders/:id
-// @access Private
-const getOrderById = asyncHandler(async (req, res) => {
-  const { id: orderId } = req.params;
-
-  // Find the order by ID and populate gig and client
-  const order = await Order.findById(orderId).populate('gig client');
-  if (!order) {
-      res.status(404);
-      throw new Error('Order not found');
+  async updateOrder(req, res) {
+    try {
+      const { status } = req.body;
+      const order = await Order.findOneAndUpdate(
+        { _id: req.params.id, client: req.user._id },
+        { status },
+        { new: true }
+      );
+      
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+      
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
   }
 
-  res.json(order);
-});
+  // Review Controllers
+  async createReview(req, res) {
+    try {
+      const { gigId, rating, comment } = req.body;
+      
+      // Check if client has ordered and completed this gig
+      const order = await Order.findOne({
+        client: req.user._id,
+        gig: gigId,
+        status: 'completed'
+      });
 
-// @desc Retrieve orders by status
-// @route GET /api/clients/orders/status/:status
-// @access Private
-const retrieveOrdersByStatus = asyncHandler(async (req, res) => {
-  const { status } = req.params;
+      if (!order) {
+        return res.status(400).json({ message: 'You must complete an order before reviewing' });
+      }
 
-  // Validate status
-  const validStatuses = ['pending', 'in_progress', 'completed', 'cancelled', 'disputed'];
-  if (!validStatuses.includes(status)) {
-      res.status(400);
-      throw new Error('Invalid status');
+      const review = new Review({
+        gig: gigId,
+        client: req.user._id,
+        rating,
+        comment
+      });
+
+      await review.save();
+      res.status(201).json(review);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
   }
 
-  // Retrieve orders by status
-  const orders = await Order.find({ client: req.user.id, status }).populate('gig client');
-  res.json(orders);
-});
+  async updateReview(req, res) {
+    try {
+      const { rating, comment } = req.body;
+      const review = await Review.findOneAndUpdate(
+        { _id: req.params.id, client: req.user._id },
+        { rating, comment },
+        { new: true }
+      );
+      
+      if (!review) {
+        return res.status(404).json({ message: 'Review not found' });
+      }
+      
+      res.json(review);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
 
+  // Payment Method Controllers
+  async addPaymentMethod(req, res) {
+    try {
+      const { type, details } = req.body;
+      const paymentMethod = new PaymentMethod({
+        user: req.user._id,
+        type,
+        details
+      });
+      
+      await paymentMethod.save();
+      res.status(201).json(paymentMethod);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
 
+  async getPaymentMethods(req, res) {
+    try {
+      const paymentMethods = await PaymentMethod.find({ user: req.user._id });
+      res.json(paymentMethods);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  }
+}
 
-
-module.exports = { getSavedGigs, saveGig, removeSavedGig,placeCustomOrder,getClientOrders };
+module.exports = new ClientController();
